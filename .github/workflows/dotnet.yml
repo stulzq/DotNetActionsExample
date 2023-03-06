@@ -27,14 +27,31 @@ jobs:
     steps:
       # 迁出代码
     - uses: actions/checkout@v3
+  
     - name: Setup .NET
       # 安装 dotnet 7.0.x
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
+
       # 还原包
     - name: Restore dependencies
       run: dotnet restore
+
       # 执行 Build
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build
+
+      # 单测 & 覆盖率
+    - name: Install coverlet
+      run: dotnet tool install --global coverlet.console
+
+    - name: Test
+      run: dotnet test  /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        fail_ci_if_error: true
+        flags: unittests
+        paths: ./**/coverage.opencover.xml
