@@ -1,19 +1,29 @@
 # This workflow will build a .NET project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
 
+# Action 名称
 name: .NET
 
+# 定义触发条件
 on:
+  # 触发动作 push
   push:
+    # 触发分支 main
     branches: [ "main" ]
+  # 触发动作 pr
   pull_request:
+    # 触发分支 main
     branches: [ "main" ]
 
+# 定义 Job
 jobs:
+  # Job 名：build
   build:
 
+    # 运行 Job 的 OS 环境
     runs-on: ubuntu-latest
 
+    # 执行 Job 对应的步骤
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET
