@@ -40,16 +40,18 @@ jobs:
 
       # Ö´ÐÐ Build
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build
 
+      # µ¥²â & ¸²¸ÇÂÊ
     - name: Install coverlet
       run: dotnet tool install --global coverlet.console
 
     - name: Test
-      run: dotnet test --configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+      run: dotnet test  /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
 
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
       with:
         fail_ci_if_error: true
-        files: ./coverage.xml
+        flags: unittests
+        paths: ./**/coverage.opencover.xml
