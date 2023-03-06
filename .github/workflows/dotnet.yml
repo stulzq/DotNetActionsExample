@@ -38,3 +38,5 @@ jobs:
       # Ö´ÐÐ Build
     - name: Build
       run: dotnet build --no-restore
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v3
