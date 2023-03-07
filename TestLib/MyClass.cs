@@ -26,5 +26,21 @@
         {
             return a - b;
         }
+
+        public int Multiply(int a, int b)
+        {
+            return a * b;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public int Divide(int a, int b)
+        {
+            return a / b;
+        }
     }
 }
