@@ -1,48 +1,48 @@
-# This workflow will build a .NET project
+ï»¿# This workflow will build a .NET project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
 
-# Action Ãû³Æ
+# Action åç§°
 name: .NET
 
-# ¶¨Òå´¥·¢Ìõ¼ş
+# å®šä¹‰è§¦å‘æ¡ä»¶
 on:
-  # ´¥·¢¶¯×÷ push
+  # è§¦å‘åŠ¨ä½œ push
   push:
-    # ´¥·¢·ÖÖ§ main
+    # è§¦å‘åˆ†æ”¯ main
     branches: [ "main" ]
-  # ´¥·¢¶¯×÷ pr
+  # è§¦å‘åŠ¨ä½œ pr
   pull_request:
-    # ´¥·¢·ÖÖ§ main
+    # è§¦å‘åˆ†æ”¯ main
     branches: [ "main" ]
 
-# ¶¨Òå Job
+# å®šä¹‰ Job
 jobs:
-  # Job Ãû£ºbuild
+  # Job åï¼šbuild
   build:
 
-    # ÔËĞĞ Job µÄ OS »·¾³
+    # è¿è¡Œ Job çš„ OS ç¯å¢ƒ
     runs-on: ubuntu-latest
 
-    # Ö´ĞĞ Job ¶ÔÓ¦µÄ²½Öè
+    # æ‰§è¡Œ Job å¯¹åº”çš„æ­¥éª¤
     steps:
-      # Ç¨³ö´úÂë
+      # è¿å‡ºä»£ç 
     - uses: actions/checkout@v3
   
     - name: Setup .NET
-      # °²×° dotnet 7.0.x
+      # å®‰è£… dotnet 7.0.x
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
 
-      # »¹Ô­°ü
+      # è¿˜åŸåŒ…
     - name: Restore dependencies
       run: dotnet restore
 
-      # Ö´ĞĞ Build
+      # æ‰§è¡Œ Build
     - name: Build
       run: dotnet build
 
-      # µ¥²â & ¸²¸ÇÂÊ
+      # æ‰§è¡Œ Test
     - name: Test
       run: dotnet test  /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
 
