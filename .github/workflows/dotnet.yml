@@ -1,54 +1,50 @@
-# This workflow will build a .NET project
+ï»¿# This workflow will build a .NET project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
 
-# Action Ãû³Æ
+# Define the name of the workflow
 name: .NET
 
-# ¶¨Òå´¥·¢Ìõ¼þ
+# Define the trigger events
 on:
-  # ´¥·¢¶¯×÷ push
+  # trigger on push
   push:
-    # ´¥·¢·ÖÖ§ main
+    # trigger on main branch
     branches: [ "main" ]
-  # ´¥·¢¶¯×÷ pr
+  # trigger on pull request
   pull_request:
-    # ´¥·¢·ÖÖ§ main
+    # trigger on main branch
     branches: [ "main" ]
 
-# ¶¨Òå Job
+# Define the jobs
 jobs:
-  # Job Ãû£ºbuild
+  # Define the build job
   build:
 
-    # ÔËÐÐ Job µÄ OS »·¾³
+    # Define the operating system
     runs-on: ubuntu-latest
 
-    # Ö´ÐÐ Job ¶ÔÓ¦µÄ²½Öè
+    # Define the steps
     steps:
-      # Ç¨³ö´úÂë
+      # Checkout the repository
     - uses: actions/checkout@v3
   
+      # Setup .NET
     - name: Setup .NET
-      # °²×° dotnet 7.0.x
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.x
 
-      # »¹Ô­°ü
+      # Restore dependencies
     - name: Restore dependencies
       run: dotnet restore
 
-      # Ö´ÐÐ Build
+      # Build the project
     - name: Build
       run: dotnet build
 
-      # µ¥²â & ¸²¸ÇÂÊ
-    - name: Install coverlet
-      run: dotnet tool install --global coverlet.console
-
     - name: Test
       run: dotnet test  /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
-
+    
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
       with:
